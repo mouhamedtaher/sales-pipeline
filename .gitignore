@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Spark
+metastore_db/
+spark-warehouse/
+derby.log
+
+# Data générée (ne pas committer les CSV factices ni les résultats locaux)
+data/*.csv
+tests/**/output/
+
+# Divers
+.DS_Store
+.pytest_cache/
+.idea/
+.vscode/
