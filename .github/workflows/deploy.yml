@@ -30,7 +30,7 @@ jobs:
       - name: Authentification AWS via OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::802617578034:role/sales-pipeline-github-deploy-role
+          role-to-assume: arn:aws:iam::802617578034:role/sales-pipeline-ci-deploy-role
           aws-region: eu-north-1
 
       - name: Déployer le script Glue et le ZIP sur S3
