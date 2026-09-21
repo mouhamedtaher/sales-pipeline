@@ -18,3 +18,4 @@ tests/**/output/
 .pytest_cache/
 .idea/
 .vscode/
+sales_pipeline.zip

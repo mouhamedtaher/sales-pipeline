@@ -1,0 +1,39 @@
+name: Deploy - Glue Scripts
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  test:
+    uses: ./.github/workflows/ci.yml
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Construire le ZIP du package
+        run: python scripts/build_zip.py
+
+      - name: Authentification AWS via OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::802617578034:role/sales-pipeline-github-deploy-role
+          aws-region: eu-north-1
+
+      - name: Déployer le script Glue et le ZIP sur S3
+        run: |
+          aws s3 cp glue_entrypoint.py s3://aws-ex-med/sales-pipeline-scripts/glue_entrypoint.py
+          aws s3 cp sales_pipeline.zip s3://aws-ex-med/sales-pipeline-scripts/sales_pipeline.zip
