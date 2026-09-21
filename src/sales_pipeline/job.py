@@ -1,4 +1,4 @@
-"""Orchestrateur du pipeline + point d'entrée exécuté par AWS Glue."""
+"""Orchestrateur du pipeline de traitement des ventes."""
 
 import logging
 from typing import Optional
@@ -61,35 +61,3 @@ class SalesPipelineJob:
 
         top_customer = self._aggregator.top_customer(df)
         logger.info("Client ayant généré le plus de CA: %s", top_customer)
-
-
-def main() -> None:
-    """Point d'entrée exécuté par AWS Glue (spark-submit du script)."""
-    import sys
-
-    from awsglue.context import GlueContext
-    from awsglue.job import Job
-    from awsglue.utils import getResolvedOptions
-    from pyspark.context import SparkContext
-
-    args = getResolvedOptions(sys.argv, ["JOB_NAME", "input_path", "output_path"])
-
-    sc = SparkContext()
-    glue_context = GlueContext(sc)
-    spark = glue_context.spark_session
-    job = Job(glue_context)
-    job.init(args["JOB_NAME"], args)
-
-    try:
-        pipeline = SalesPipelineJob(
-            spark=spark,
-            input_path=args["input_path"],
-            output_path=args["output_path"],
-        )
-        pipeline.run()
-    finally:
-        job.commit()
-
-
-if __name__ == "__main__":
-    main()
