@@ -1,4 +1,5 @@
 """Nettoyage des données de ventes : typage, valeurs nulles et valeurs aberrantes."""
+"""Nettoyage des données de ventes : typage, valeurs nulles et valeurs aberrantes.""""""Nettoyage des données de ventes : typage, valeurs nulles et valeurs aberrantes."""
 
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import col, to_date

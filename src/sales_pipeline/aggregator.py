@@ -1,6 +1,5 @@
 """Agrégations métier : CA par jour, top produits, meilleur client."""
 """Agrégations métier : CA par jour, top produits, meilleur client."""
-"""Agrégations métier : CA par jour, top produits, meilleur client."""
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import count, desc
 from pyspark.sql.functions import sum as _sum
